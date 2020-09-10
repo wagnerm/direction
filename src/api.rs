@@ -2,14 +2,13 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 
-use serde::Deserialize;
-
 use reqwest::header;
+use serde::Deserialize;
 use std::error::Error;
 
 #[derive(Deserialize)]
 pub struct Status {
-  status: String,
+    status: String,
 }
 
 pub struct Weather {
