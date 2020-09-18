@@ -2,28 +2,12 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 
+use reqwest::blocking::Response;
 use reqwest::header;
-use serde::Deserialize;
 use std::error::Error;
-
-#[derive(Deserialize)]
-pub struct Status {
-    status: String,
-}
 
 pub struct Weather {
     client: reqwest::blocking::Client,
-}
-
-pub trait Requester {
-    fn get(&self, url: &String) -> Result<Status, reqwest::Error>;
-}
-
-impl Requester for Weather {
-    fn get(&self, url: &String) -> Result<Status, reqwest::Error> {
-        let json: Status = self.client.get(url).send()?.json()?;
-        Ok(json)
-    }
 }
 
 impl Weather {
@@ -42,12 +26,8 @@ impl Weather {
         Ok(Weather { client: client })
     }
 
-    pub fn fetch_api(&self) -> Result<(), Box<dyn Error>> {
-        let query = String::from("https://api.weather.gov");
-        let json = &self.get(&query)?;
-        println!("{}", json.status);
-
-        Ok(())
+    pub fn get(&self, url: &String) -> Result<Response, reqwest::Error> {
+        self.client.get(url).send()
     }
 }
 
