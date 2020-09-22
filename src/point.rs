@@ -4,7 +4,7 @@ use super::client::WeatherClient;
 
 #[derive(Deserialize, Serialize)]
 pub struct Point {
-    id: String,
+    pub id: String,
     pub properties: Property,
 }
 
@@ -32,20 +32,4 @@ pub struct Period {
     pub windSpeed: String,
     pub windDirection: String,
     pub detailedForecast: String,
-}
-
-impl Point {
-    pub fn fetch(w: &WeatherClient) -> Result<Point, reqwest::Error> {
-        let url = String::from("https://api.weather.gov/points/40.5853,-105.0844");
-        let point: Point = w.get(&url)?.json()?;
-
-        Ok(point)
-    }
-
-    pub fn get_forecast(&self, w: &WeatherClient) -> Result<Forecast, reqwest::Error> {
-        let url = String::from(self.properties.forecast.clone());
-        let forecast: Forecast = w.get(&url)?.json()?;
-
-        Ok(forecast)
-    }
 }
