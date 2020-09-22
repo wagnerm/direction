@@ -6,12 +6,12 @@ use reqwest::blocking::Response;
 use reqwest::header;
 use std::error::Error;
 
-pub struct Weather {
+pub struct WeatherClient {
     client: reqwest::blocking::Client,
 }
 
-impl Weather {
-    pub fn new() -> Result<Weather, Box<dyn Error>> {
+impl WeatherClient {
+    pub fn new() -> Result<WeatherClient, Box<dyn Error>> {
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert(
             header::USER_AGENT,
@@ -23,7 +23,7 @@ impl Weather {
             .default_headers(headers)
             .build()?;
 
-        Ok(Weather { client: client })
+        Ok(WeatherClient { client: client })
     }
 
     pub fn get(&self, url: &String) -> Result<Response, reqwest::Error> {

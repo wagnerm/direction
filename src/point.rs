@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::api::Weather;
+use super::client::WeatherClient;
 
 #[derive(Deserialize, Serialize)]
 pub struct Point {
@@ -35,14 +35,14 @@ pub struct Period {
 }
 
 impl Point {
-    pub fn fetch(w: &Weather) -> Result<Point, reqwest::Error> {
+    pub fn fetch(w: &WeatherClient) -> Result<Point, reqwest::Error> {
         let url = String::from("https://api.weather.gov/points/40.5853,-105.0844");
         let point: Point = w.get(&url)?.json()?;
 
         Ok(point)
     }
 
-    pub fn get_forecast(&self, w: &Weather) -> Result<Forecast, reqwest::Error> {
+    pub fn get_forecast(&self, w: &WeatherClient) -> Result<Forecast, reqwest::Error> {
         let url = String::from(self.properties.forecast.clone());
         let forecast: Forecast = w.get(&url)?.json()?;
 
