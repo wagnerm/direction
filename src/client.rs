@@ -8,13 +8,13 @@ use std::error::Error;
 
 use super::point;
 
-pub struct WeatherClient {
+pub struct WeatherClient<'c> {
     client: reqwest::blocking::Client,
-    coordinate: &'static str,
+    coordinate: &'c str,
 }
 
-impl WeatherClient {
-    pub fn new(coordinate: &'static str) -> Result<WeatherClient, Box<dyn Error>> {
+impl<'c> WeatherClient<'c> {
+    pub fn new(coordinate: &'c str) -> Result<WeatherClient, Box<dyn Error>> {
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert(
             header::USER_AGENT,
