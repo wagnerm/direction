@@ -10,11 +10,11 @@ use super::point;
 
 pub struct WeatherClient {
     client: reqwest::blocking::Client,
-    coordinate: String,
+    coordinate: &'static str,
 }
 
 impl WeatherClient {
-    pub fn new(coordinate: String) -> Result<WeatherClient, Box<dyn Error>> {
+    pub fn new(coordinate: &'static str) -> Result<WeatherClient, Box<dyn Error>> {
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert(
             header::USER_AGENT,
@@ -38,7 +38,7 @@ impl WeatherClient {
     }
 
     fn get_point(&self) -> Result<point::Point, reqwest::Error> {
-        let url = String::from("https://api.weather.gov/points/***REMOVED***");
+        let url = vec!["https://api.weather.gov/points/", self.coordinate].join("");
         let point: point::Point = self.get(&url)?.json()?;
 
         Ok(point)

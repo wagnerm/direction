@@ -2,7 +2,7 @@ mod client;
 mod point;
 
 fn main() {
-    let weather = client::WeatherClient::new(String::from(***REMOVED***))
+    let weather = client::WeatherClient::new(***REMOVED***)
         .expect("Failed to initialize weather reading!");
     let f = weather.get_forecast().expect("Cound not get forecast!");
     for p in f.properties.periods {
