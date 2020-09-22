@@ -22,6 +22,7 @@ pub struct ForecastProperty {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+#[allow(non_snake_case)]
 pub struct Period {
     pub number: usize,
     pub name: String,
