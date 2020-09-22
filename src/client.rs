@@ -32,21 +32,26 @@ impl WeatherClient {
         })
     }
 
-    pub fn get(&self, url: &String) -> Result<Response, reqwest::Error> {
-        self.client.get(url).send()
+    pub fn get_forecast(&self) -> Result<point::Forecast, reqwest::Error> {
+        let p = self.get_point().expect("Count not get point!");
+        self.get_forecast_periods(&p)
     }
 
-    pub fn get_point(&self) -> Result<point::Point, reqwest::Error> {
+    fn get_point(&self) -> Result<point::Point, reqwest::Error> {
         let url = String::from("https://api.weather.gov/points/***REMOVED***");
         let point: point::Point = self.get(&url)?.json()?;
 
         Ok(point)
     }
 
-    pub fn get_forecast(&self, p: &point::Point) -> Result<point::Forecast, reqwest::Error> {
+    fn get_forecast_periods(&self, p: &point::Point) -> Result<point::Forecast, reqwest::Error> {
         let url = String::from(p.properties.forecast.clone());
         let forecast: point::Forecast = self.get(&url)?.json()?;
 
         Ok(forecast)
+    }
+
+    fn get(&self, url: &String) -> Result<Response, reqwest::Error> {
+        self.client.get(url).send()
     }
 }
