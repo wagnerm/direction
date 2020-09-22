@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use super::client::WeatherClient;
-
 #[derive(Deserialize, Serialize)]
 pub struct Point {
     pub id: String,
