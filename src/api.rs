@@ -30,9 +30,3 @@ impl Weather {
         self.client.get(url).send()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use std::fmt;
-}
