@@ -8,6 +8,7 @@ mod client;
 mod point;
 
 fn main() {
+    dotenv::from_filename(".env.local").ok();
     dotenv().ok();
 
     let weather = client::WeatherClient::new("40.5853,-105.0844")
