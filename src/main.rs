@@ -19,14 +19,11 @@ fn main() {
         client::WeatherClient::new(opts.coordinate).expect("Failed to initialize weather reading!");
     let f = weather.get_forecast().expect("Cound not get forecast!");
 
-    let mut periods = vec![];
-    for p in f.properties.periods {
-        periods.push(format!("{} {} {}", p.name, p.windSpeed, p.windDirection));
-    }
-
     let hook_url = get_chat_hook().unwrap();
     let c = chat::ChatClient::new(hook_url);
-    c.post_message(periods.join("\n")).unwrap();
+
+    let message = c.format_message(f.properties.periods);
+    c.post_message(message).unwrap();
 }
 
 fn get_chat_hook() -> Result<String, std::env::VarError> {
