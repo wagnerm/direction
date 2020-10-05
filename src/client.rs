@@ -8,13 +8,13 @@ use std::error::Error;
 
 use super::point;
 
-pub struct WeatherClient<'c> {
+pub struct WeatherClient {
     client: reqwest::blocking::Client,
-    coordinate: &'c str,
+    coordinate: String,
 }
 
-impl<'c> WeatherClient<'c> {
-    pub fn new(coordinate: &'c str) -> Result<WeatherClient, Box<dyn Error>> {
+impl WeatherClient {
+    pub fn new(coordinate: String) -> Result<WeatherClient, Box<dyn Error>> {
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert(
             header::USER_AGENT,
@@ -38,7 +38,7 @@ impl<'c> WeatherClient<'c> {
     }
 
     fn get_point(&self) -> Result<point::Point, reqwest::Error> {
-        let url = vec!["https://api.weather.gov/points/", self.coordinate].join("");
+        let url = vec!["https://api.weather.gov/points/", &self.coordinate].join("");
         let point: point::Point = self.get(&url)?.json()?;
 
         Ok(point)
