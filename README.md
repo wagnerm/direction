@@ -1,7 +1,5 @@
 # Direction
 
-Are you like me and like in a windy state? Do you like planning your training routes to be in headwind on the way out and tailwind on the way back?
+A simple program to send the current wind conditions to Slack using Actions.
 
-Then this project might be for you. Welcome to Direction!
-
-This project aims to provide you with information about wind direction so you can plan your outdoors training route accordingly.
+Often before training runs and rides I determine the route I take based on wind. Headwind on the way out, tailwind on the wait back 😜.
