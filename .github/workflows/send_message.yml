@@ -1,0 +1,20 @@
+name: SendMessage
+
+on:
+  schedule:
+  - cron: "0 16 * * 1-5"
+  - cron: "0 13 * * 6-7"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Send It
+      run: cargo run -- --coordinate "$COORDINATE"
+      env:
+        CHAT_HOOK_URL: ${{ secrets.CHAT_HOOK_URL }}
+        COORDINATE: ${{ secrets.COORDINATE }}
