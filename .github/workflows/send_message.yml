@@ -3,7 +3,7 @@ name: SendMessage
 on:
   schedule:
   - cron: "0 16 * * 1-5"
-  - cron: "0 13 * * 6-7"
+  - cron: "0 13 * * 6,0"
 
 env:
   CARGO_TERM_COLOR: always
